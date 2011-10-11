@@ -14,7 +14,7 @@ end
 gem 'jquery-rails'
 
 group :development, :test do
-  gem 'refinerycms-testing', '~> 2.0.0'
+  gem 'refinerycms-testing', '~> 2.0.0', :require => false
   gem 'factory_girl_rails'
   gem 'generator_spec'
   

@@ -1,9 +1,13 @@
 require 'rubygems'
 
+def load_all(*patterns)
+  patterns.each { |pattern| Dir[pattern].sort.each { |path| load File.expand_path(path) } }
+end
+
 def setup_environment
   # Configure Rails Environment
   ENV["RAILS_ENV"] = 'test'
-  require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+  require File.expand_path("../dummy/config/environment",  __FILE__)
 
   require 'rspec/rails'
   require 'capybara/rspec'
@@ -12,35 +16,23 @@ def setup_environment
 
   RSpec.configure do |config|
     config.mock_with :rspec
+    config.treat_symbols_as_metadata_keys_with_true_values = true
+    config.filter_run :focus => true
+    config.run_all_when_everything_filtered = true
   end
 end
 
 def each_run
-  require 'factory_girl_rails'
-  require 'refinerycms-testing'
-  require 'refinery/testing/factories'
+  FactoryGirl.reload
+  ActiveSupport::Dependencies.clear
   
-  Dir[File.expand_path("../../app/models/**/*.rb", __FILE__)].each do |model|
-    load model
-  end
-  
-  Dir[
-    File.expand_path("../support/**/*.rb", __FILE__),
-    File.expand_path("../factories/**/*.rb", __FILE__)
-  ].each {|f| require f}
+  load_all 'spec/support/**/*.rb'
+  load_all 'spec/factories/**/*.rb'
 end
 
-# If spork is available in the Gemfile it'll be used but we don't force it.
-unless (begin; require 'spork'; rescue LoadError; nil end).nil?
-  Spork.prefork do
-    setup_environment
-    
-    ActiveSupport::Dependencies.clear
-  end
-
-  Spork.each_run do
-    each_run
-  end
+if defined?(Spork)
+  Spork.prefork { setup_environment }
+  Spork.each_run { each_run }
 else
   setup_environment
   each_run
