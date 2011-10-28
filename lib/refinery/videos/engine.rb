@@ -36,13 +36,13 @@ module Refinery
         ]
       end
       
-      initializer "init plugin", :after => :set_routes_reloader do |app|
+      initializer "register refinerycms_blog plugin", :after => :set_routes_reloader do |app|
         Refinery::Plugin.register do |plugin|
           plugin.name = "videos"
           plugin.url = app.routes.url_helpers.refinery_admin_raw_videos_path
           plugin.menu_match = /^\/?(admin|refinery)\/videos/
           plugin.activity = {
-            :class => RawVideo,
+            :class_name => :'refinery/raw_video',
             :title => 'name'
           }
         end
