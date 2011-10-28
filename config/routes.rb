@@ -1,4 +1,4 @@
-Refinery::Application.routes.draw do
+Rails.application.routes.draw do
   scope(:module => 'refinery') do
     resources :raw_videos, :path => 'videos', :only => [:show]
   
