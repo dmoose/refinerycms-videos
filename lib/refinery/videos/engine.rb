@@ -3,7 +3,12 @@ require 'rails'
 
 module Refinery
   module Videos
-    class Engine < Rails::Engine      
+    class Engine < Rails::Engine
+      include Refinery::Engine
+
+      isolate_namespace Refinery
+      engine_name :refinery_videos
+      
       initializer 'videos-with-dragonfly', :before => :load_config_initializers do |app|
         app_videos = Dragonfly[:videos]
         app_videos.configure_with(:rails) do |c|
