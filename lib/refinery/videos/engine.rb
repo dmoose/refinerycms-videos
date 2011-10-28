@@ -1,4 +1,5 @@
-require 'dragonfly-ffmpeg'
+require 'refinerycms-videos'
+require 'rails'
 
 module Refinery
   module Videos
@@ -45,6 +46,10 @@ module Refinery
             :title => 'name'
           }
         end
+      end
+      
+      config.after_initialize do
+        Refinery.engines << 'videos'
       end
     end
   end

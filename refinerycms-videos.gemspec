@@ -1,5 +1,5 @@
+# Encoding: UTF-8
 $:.push File.expand_path("../lib", __FILE__)
-
 require "refinery/videos/version"
 
 Gem::Specification.new do |s|
@@ -12,9 +12,10 @@ Gem::Specification.new do |s|
   s.summary       = 'Videos engine for Refinery CMS'
   s.description   = 'Ruby on Rails Videos engine for Refinery CMS'
   s.require_paths = %w(lib)
-
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["test/**/*"]
+  
+  s.files             = `git ls-files`.split("\n")
+  s.test_files        = `git ls-files -- spec/*`.split("\n")
+  s.executables       = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
 
   s.add_dependency 'refinerycms-core', '~> 2.0.0'
   s.add_dependency 'refinerycms-authentication', '~> 2.0.0'

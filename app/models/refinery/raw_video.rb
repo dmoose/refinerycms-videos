@@ -20,7 +20,7 @@ module Refinery
     
     class << self
       def create_video(params)
-        if Videos::Options.use_nginx_upload_module
+        if Videos.use_nginx_upload_module
           create_video_from_nginx_upload(params)
         else
           create(params[:raw_video])

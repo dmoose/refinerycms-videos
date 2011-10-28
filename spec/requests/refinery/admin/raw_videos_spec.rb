@@ -70,7 +70,7 @@ module Refinery
         end
         
         context "when upload_progress_uri is set to /progress" do
-          before(:each) { Refinery::Videos::Options.upload_progress_uri = '/progress' }
+          before(:each) { Refinery::Videos.upload_progress_uri = '/progress' }
           
           it "should show an upload progress bar" do
             visit new_refinery_admin_raw_video_path

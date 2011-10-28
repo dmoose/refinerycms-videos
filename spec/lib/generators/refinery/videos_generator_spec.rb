@@ -19,7 +19,7 @@ module Refinery
         directory "config" do
           directory "initializers" do
             file "refinery_videos.rb" do
-              contains "Refinery::Videos::Options.configure"
+              contains "Refinery::Videos.configure"
             end
           end
         end
