@@ -54,7 +54,7 @@ module Refinery
       end
       
       config.after_initialize do
-        Refinery.engines << 'videos'
+        Refinery.register_engine(Refinery::Videos)
       end
     end
   end
