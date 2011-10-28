@@ -2,9 +2,10 @@ require 'refinerycms-core'
 require 'dragonfly-ffmpeg'
 
 module Refinery
+  autoload :VideosGenerator, 'generators/refinery/videos/videos_generator'
+  
   module Videos
     require 'refinery/videos/engine' if defined?(Rails)
-    require 'refinery/generators/videos_generator'
     
     autoload :Version, 'refinery/videos/version'
     
