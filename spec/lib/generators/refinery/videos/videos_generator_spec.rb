@@ -4,7 +4,7 @@ require "generator_spec/test_case"
 module Refinery
   describe VideosGenerator do
     include GeneratorSpec::TestCase
-    destination File.expand_path("../../tmp", __FILE__)
+    destination File.expand_path("../../../../../tmp", __FILE__)
 
     before(:each) do
       prepare_destination
@@ -14,7 +14,9 @@ module Refinery
     specify do
       destination_root.should have_structure {
         directory "db" do
-          directory "migrate"
+          file "seeds.rb" do
+            contains "Refinery::Videos::Engine.load_seed"
+          end
         end
         directory "config" do
           directory "initializers" do
@@ -22,6 +24,7 @@ module Refinery
               contains "Refinery::Videos.configure"
             end
           end
+          file "resque.yml"
         end
       }
     end
