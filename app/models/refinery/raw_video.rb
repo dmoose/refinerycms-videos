@@ -49,6 +49,7 @@ module Refinery
     
     def encode(format, options = {})
       options.symbolize_keys!
+      options[:meta] = {} unless options[:meta]
 
       default_meta = {
         :name => File.basename(self.name, '.*') + ".#{format.to_s}"
