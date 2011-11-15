@@ -49,6 +49,12 @@ module Refinery
     
     def encode(format, options = {})
       options.symbolize_keys!
+
+      default_meta = {
+        :name => File.basename(self.name, '.*') + ".#{format.to_s}"
+      }
+
+      options[:meta] = default_meta.merge(options[:meta])
       
       EncodedVideo.create! do |encoded_video|
         encoded_video.raw_video = self
