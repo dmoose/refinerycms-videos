@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name          = "refinerycms-videos"
   s.version       = Refinery::Videos::Version.to_s
   s.authors       = ["Jamie Winsor"]
-  s.email         = ["jamie@enmasse.com"]
+  s.email         = ["jamie@vialstudios.com"]
   s.homepage      = "https://github.com/enmasse-entertainment/refinerycms-videos"
   s.summary       = 'Videos engine for Refinery CMS'
   s.description   = 'Ruby on Rails Videos engine for Refinery CMS'

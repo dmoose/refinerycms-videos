@@ -23,7 +23,7 @@ Edit your config.ru and replace the run EnmasseOnline::Aplication line with the 
 LICENSE and AUTHOR
 ==================
 
-Author:: Jamie Winsor (<jamie@enmasse.com>)
+Author:: Jamie Winsor (<jamie@vialstudios.com>)
 
 Copyright:: 2011, En Masse Entertainment, Inc
 
