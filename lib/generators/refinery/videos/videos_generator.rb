@@ -3,7 +3,7 @@ module Refinery
     source_root File.expand_path('../templates', __FILE__)
 
     def rake_db
-      rake("refinery_video:install:migrations")
+      rake("refinery_videos:install:migrations")
     end
     
     def generate_videos_initializer
