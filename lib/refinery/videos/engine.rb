@@ -41,9 +41,9 @@ module Refinery
         ]
       end
       
-      initializer "register refinerycms_blog plugin", :after => :set_routes_reloader do |app|
+      initializer "register refinerycms_videos plugin", :after => :set_routes_reloader do |app|
         Refinery::Plugin.register do |plugin|
-          plugin.name = "videos"
+          plugin.name = "refinerycms_videos"
           plugin.url = app.routes.url_helpers.refinery_admin_raw_videos_path
           plugin.menu_match = /^\/?(admin|refinery)\/videos/
           plugin.activity = {
