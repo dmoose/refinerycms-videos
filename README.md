@@ -11,7 +11,7 @@ Requirements
 Adding the Resque Front-End to your app
 =======================================
 
-Edit your config.ru and replace the run EnmasseOnline::Aplication line with the following:
+Edit your config.ru and replace the run EnmasseOnline::Application line with the following:
 
     require 'resque/server'
 

@@ -5,7 +5,7 @@ Refinery::User.all.each do |user|
   end
 end
 
-unless Refinery::Page.where(:menu_match => "^/videos(\/|\/.+?|)$").any?
+if defined?(Refinery::Page) && Refinery::Page.where(:link_url => "/videos").first.nil?
   page = Refinery::Page.create(
     :title => 'Videos',
     :link_url => '/videos',
