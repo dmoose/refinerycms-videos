@@ -5,7 +5,7 @@ en:
         image_picker:
           image: image
     plugins:
-      videos:
+      refinerycms_videos:
         title: Videos
     admin:
       raw_videos:
