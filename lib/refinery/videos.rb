@@ -11,12 +11,16 @@ module Refinery
     
     DEFAULT_USE_NGINX_UPLOAD_MODULE = false
     DEFAULT_UPLOAD_PROGRESS_URI = nil
+    DEFAULT_ENCODE_QUEUE_NAME = :encode_video
 
     mattr_accessor :use_nginx_upload_module
     self.use_nginx_upload_module = DEFAULT_USE_NGINX_UPLOAD_MODULE
     
     mattr_accessor :upload_progress_uri
     self.upload_progress_uri = DEFAULT_UPLOAD_PROGRESS_URI
+    
+    mattr_accessor :encode_queue_name
+    self.encode_queue_name = DEFAULT_ENCODE_QUEUE_NAME
     
     class << self
       # Configure the options of Refinery::Images.
