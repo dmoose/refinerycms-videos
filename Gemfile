@@ -5,9 +5,10 @@ gemspec
 # Uncomment if developing
 gem 'refinerycms', '~> 2.0.0', :git => 'git://github.com/resolve/refinerycms.git'
 
+# Refinery/rails should pull in the proper versions of these
 group :assets do
-  gem 'sass-rails', '~> 3.1.0'
-  gem 'coffee-rails', '~> 3.1.0'
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
@@ -19,6 +20,19 @@ group :development, :test do
   gem 'generator_spec'
   
   require 'rbconfig'
+
+  platforms :jruby do
+    gem 'activerecord-jdbcsqlite3-adapter'
+    gem 'activerecord-jdbcmysql-adapter'
+    gem 'activerecord-jdbcpostgresql-adapter'
+    gem 'jruby-openssl'
+  end
+
+  unless defined?(JRUBY_VERSION)
+    gem 'sqlite3'
+    gem 'mysql2'
+    gem 'pg'
+  end
 
   platforms :mswin, :mingw do
     gem 'win32console'
