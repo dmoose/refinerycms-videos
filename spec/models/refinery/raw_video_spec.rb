@@ -56,7 +56,7 @@ module Refinery
         end
         
         it "should have a filename with the format's file extension" do
-          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}.+\.mp4/)
+          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}\.mp4/)
         end
       end
       
@@ -84,7 +84,7 @@ module Refinery
         end
         
         it "should have a filename with the format's file extension" do
-          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}.+\.ogv/)
+          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}\.ogv/)
         end
       end
       
@@ -112,12 +112,12 @@ module Refinery
         end
         
         it "should have a filename with the format's file extension" do
-          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}.+\.webm/)
+          @encoded_video.name.should match(/#{File.basename(subject.name, '.*')}\.webm/)
         end
       end
     end
     
-    describe ".ecoded?" do
+    describe ".encoded?" do
       context "when has no encoded children" do        
         subject { FactoryGirl.create(:raw_video) }
 
