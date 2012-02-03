@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 
+# Lock the project to a version before some breaking changes.
 git 'git://github.com/resolve/refinerycms.git', :ref => "a82690e9a376757ca8ece27343eb96e4f07108f7" do
   gem 'refinerycms'
 
