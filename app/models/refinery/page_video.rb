@@ -1,7 +1,7 @@
 module Refinery
   class PageVideo < ActiveRecord::Base
 
-    belongs_to :video, :foreign_key => 'raw_video_id'
+    belongs_to :video, :foreign_key => 'raw_video_id', :class_name => ::Refinery::RawVideo
     belongs_to :page, :polymorphic => true
 
     translates :caption if self.respond_to?(:translates)
