@@ -29,7 +29,7 @@ module Refinery
         page.update_attributes(:videos_attributes => {
           "0" => {
             "id" => videos.first.id.to_s,
-            "video_page_id" => page.page_videos.first.id,
+            "page_video_id" => page.page_videos.first.id,
           },
         })
 
@@ -44,11 +44,11 @@ module Refinery
         page.update_attributes(:videos_attributes => {
           "0" => {
             "id" => videos.second.id,
-            "video_page_id" => page.page_videos.second.id,
+            "page_video_id" => page.page_videos.second.id,
           },
           "1" => {
             "id" => videos.first.id,
-            "video_page_id" => page.page_videos.first.id,
+            "page_video_id" => page.page_videos.first.id,
           },
         })
 
