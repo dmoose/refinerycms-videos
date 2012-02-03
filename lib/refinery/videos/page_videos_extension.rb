@@ -1,5 +1,5 @@
 module Refinery
-  module PageVideos
+  module Videos
     module Extension
       def has_many_page_videos
         has_many :page_videos, :as => :page, :order => 'position ASC'
@@ -32,13 +32,13 @@ module Refinery
               end
 
               page_video.position = i
-              page_video.caption = caption if Refinery::PageVideos.config.captions
+              page_video.caption = caption if Refinery::Videos.captions
               page_video.save
             end
           end
         end
 
-        include Refinery::PageVideos::Extension::InstanceMethods
+        include Refinery::Videos::Extension::InstanceMethods
 
         attr_accessible :videos_attributes
       end
@@ -57,4 +57,4 @@ module Refinery
   end
 end
 
-ActiveRecord::Base.send(:extend, Refinery::PageVideos::Extension)
+ActiveRecord::Base.send(:extend, Refinery::Videos::Extension)
