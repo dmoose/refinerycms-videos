@@ -8,7 +8,7 @@ module Refinery
 
       isolate_namespace Refinery
       engine_name :refinery_videos
-      
+
       initializer 'videos-with-dragonfly', :before => :load_config_initializers do |app|
         app_videos = Dragonfly[:videos]
         app_videos.configure_with(:rails) do |c|
@@ -16,17 +16,17 @@ module Refinery
           c.url_format = '/system/videos/:job/:basename.:format'
           c.secret = Refinery::Setting.find_or_set(:dragonfly_secret, Array.new(24) { rand(256) }.pack('C*').unpack('H*').first)
         end
-                
+
         app_videos.define_macro(ActiveRecord::Base, :video_accessor)
         app_videos.analyser.register(Dragonfly::Analysis::FileCommandAnalyser)
         app_videos.configure_with(:ffmpeg)
         app_videos.register_mime_type(:mp4, 'video/mp4')
         app_videos.register_mime_type(:ogv, 'video/ogg')
         app_videos.register_mime_type(:webm, 'video/webm')
-        
+
         app.config.middleware.insert 0, 'Dragonfly::Middleware', :videos
       end
-      
+
       initializer "resque" do |app|
         require 'resque'
         require 'resque/server'
@@ -40,14 +40,14 @@ module Refinery
 
         Resque.redis = resque_config[Rails.env]
       end
-      
+
       initializer "refinery.assets.precompile" do |app|
          app.config.assets.precompile += [
            "jquery.uploadProgress.js",
            "refinery/videos/*"
         ]
       end
-      
+
       initializer "register refinerycms_videos plugin", :after => :set_routes_reloader do |app|
         Refinery::Plugin.register do |plugin|
           plugin.name = "refinerycms_videos"
@@ -59,9 +59,18 @@ module Refinery
           }
         end
       end
-      
+
       config.after_initialize do
         Refinery.register_engine(Refinery::Videos)
+      end
+
+      config.to_prepare do
+        require 'refinerycms-pages'
+        ::Refinery::Page.send :has_many_page_videos
+        ::Refinery::Blog::Post.send :has_many_page_videos if defined?(::Refinery::Blog)
+        ::Refinery::Image.module_eval do
+          has_many :page_videos, :dependent => :destroy
+        end
       end
     end
   end
