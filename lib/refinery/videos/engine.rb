@@ -30,7 +30,14 @@ module Refinery
       initializer "resque" do |app|
         require 'resque'
         require 'resque/server'
-        resque_config = YAML.load_file(Rails.root.join('config', 'resque.yml').to_s)
+        resque_yml = Rails.root.join('config', 'resque.yml')
+
+        resque_config = if (Rails.env.development? || Rails.env.test?) && !resque_yml.exist?
+          {}
+        else
+          YAML.load_file(resque_yml.to_s)
+        end
+
         Resque.redis = resque_config[Rails.env]
       end
       
@@ -44,7 +51,7 @@ module Refinery
       initializer "register refinerycms_videos plugin", :after => :set_routes_reloader do |app|
         Refinery::Plugin.register do |plugin|
           plugin.name = "refinerycms_videos"
-          plugin.url = app.routes.url_helpers.refinery_admin_raw_videos_path
+          plugin.url = {:controller=>"refinery/admin/raw_videos"}
           plugin.menu_match = /^\/?(admin|refinery)\/videos/
           plugin.activity = {
             :class_name => :'refinery/raw_video',
