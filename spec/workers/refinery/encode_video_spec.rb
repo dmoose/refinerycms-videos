@@ -7,7 +7,7 @@ module Refinery
     describe ".perform" do
       before(:each) do
         EncodedVideo.delete_all
-        subject.class.perform(raw_video.id, :mp4)
+        subject.class.perform(raw_video.id, :ogv)
       end
       
       it "should create a new EncodedVideo" do
