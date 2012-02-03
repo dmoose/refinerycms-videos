@@ -6,6 +6,7 @@ module Refinery
   
   module Videos
     require 'refinery/videos/engine' if defined?(Rails)
+    require 'refinery/videos/page_videos_extension'
     
     autoload :Version, 'refinery/videos/version'
     
