@@ -48,7 +48,7 @@ module Refinery
         ]
       end
 
-      initializer "register refinerycms_videos plugin", :after => :set_routes_reloader do |app|
+      config.after_initialize do
         Refinery::Plugin.register do |plugin|
           plugin.name = "refinerycms_videos"
           plugin.url = {:controller=>"refinery/admin/raw_videos"}
@@ -58,9 +58,19 @@ module Refinery
             :title => 'name'
           }
         end
-      end
 
-      config.after_initialize do
+        ::Refinery::Pages::Tab.register do |tab|
+          tab.name = "videos"
+          tab.partial = "/refinery/admin/pages/tabs/videos"
+        end
+
+        if defined?(::Refinery::Blog::Tab)
+          ::Refinery::Blog::Tab.register do |tab|
+            tab.name = "videos"
+            tab.partial = "/refinery/admin/pages/tabs/videos"
+          end
+        end
+
         Refinery.register_engine(Refinery::Videos)
       end
 
@@ -68,10 +78,8 @@ module Refinery
         require 'refinerycms-pages'
         ::Refinery::Page.send :has_many_page_videos
         ::Refinery::Blog::Post.send :has_many_page_videos if defined?(::Refinery::Blog)
-        ::Refinery::Image.module_eval do
-          has_many :page_videos, :dependent => :destroy
-        end
       end
+
     end
   end
 end

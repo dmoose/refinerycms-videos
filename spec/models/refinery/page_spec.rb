@@ -7,6 +7,7 @@ module Refinery
       page.videos.count.should eq(0)
 
       page.videos << Factory(:video)
+
       page.videos.count.should eq(1)
     end
 

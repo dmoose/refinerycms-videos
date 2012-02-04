@@ -2,7 +2,8 @@ module Refinery
   class RawVideo < ActiveRecord::Base
 
     has_many :encoded_videos
-    
+    has_many :page_videos, :dependent => :destroy
+
     belongs_to :poster_image, :class_name => 'Refinery::Image'
     attr_accessible :poster_image_id
     
