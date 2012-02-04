@@ -51,7 +51,7 @@ module Refinery
       config.after_initialize do
         Refinery::Plugin.register do |plugin|
           plugin.name = "refinerycms_videos"
-          plugin.url = {:controller=>"refinery/admin/raw_videos"}
+          plugin.url = { :controller => "/refinery/admin/raw_videos" }
           plugin.menu_match = /^\/?(admin|refinery)\/videos/
           plugin.activity = {
             :class_name => :'refinery/raw_video',

@@ -1,0 +1,29 @@
+<div id='existing_video_area' class='dialog_area' <%= "style='display:none;'" if @raw_video.errors.any? %>>
+  <input type='hidden' name='linked_video' id='linked_video' />
+  <div id='existing_video_area_content' class='clearfix'>
+    <div id='pages_list' class='pages_list'>
+      <ul class='link_list'>
+        <% @raw_videos.each do |video| -%>
+          <% video_linked = (video.url == params[:current_link]) if params[:current_link].present? %>
+          <li<%= " class='linked'" if video_linked %>>
+            <%= link_to "#{video.title} (#{video.file_name})", video.url,
+                        :title => t('.link_to_file'),
+                        :rel => video.title,
+                        :class => 'page_link',
+                        :id => "video_#{video.id}" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <%= will_paginate @raw_videos %>
+
+  <%= render :partial => "/refinery/admin/form_actions",
+             :locals => {
+               :f => nil,
+               :submit_button_text => t('.button_text'),
+               :hide_cancel => true,
+               :hide_delete => true
+             } if @app_dialog or @raw_videos.any? %>
+</div>
