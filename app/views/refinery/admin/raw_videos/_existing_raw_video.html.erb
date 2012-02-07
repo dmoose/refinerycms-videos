@@ -1,20 +1,26 @@
-<div id='existing_video_area' class='dialog_area' <%= "style='display:none;'" if @raw_video.errors.any? %>>
-  <input type='hidden' name='linked_video' id='linked_video' />
-  <div id='existing_video_area_content' class='clearfix'>
-    <div id='pages_list' class='pages_list'>
-      <ul class='link_list'>
-        <% @raw_videos.each do |video| -%>
-          <% video_linked = (video.url == params[:current_link]) if params[:current_link].present? %>
-          <li<%= " class='linked'" if video_linked %>>
-            <%= link_to "#{video.title} (#{video.file_name})", video.url,
-                        :title => t('.link_to_file'),
-                        :rel => video.title,
-                        :class => 'page_link',
-                        :id => "video_#{video.id}" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+<div id='existing_image_area' class='dialog_area' <%= "style='display:none;'" if @raw_video.errors.any? %>>
+  <%= render :partial => '/refinery/admin/search',
+             :locals => {:url => main_app.insert_refinery_admin_raw_videos_path(params.dup.delete(:image))} %>
+  <input type='hidden' name='selected_image' id='selected_image' />
+  <div id='existing_image_area_content' class='clearfix'>
+<% if @raw_videos.any? %>
+    <ul>
+      <% @raw_videos.each do |video| %>
+        <li<%= " class='selected'" if @raw_video_id == video.id %>>
+          <%= image_fu(video.poster_image, '106x106#c', {
+                :alt => video.title,
+                :title => video.title,
+                :id => "image_#{video.id}",
+                :'data-id' => video.id,
+                :"data-original" => asset_paths.compute_public_path(video.poster_image.url, ''),
+                :"data-grid" => asset_paths.compute_public_path(video.poster_image.thumbnail('135x135#c').url, '')
+ }) -%>
+        </li>
+      <% end -%>
+    </ul>
+<% elsif searching? %>
+    <%= t('no_results', :scope => 'refinery.admin.search') %>
+<% end %>
   </div>
 
   <%= will_paginate @raw_videos %>
@@ -22,8 +28,11 @@
   <%= render :partial => "/refinery/admin/form_actions",
              :locals => {
                :f => nil,
+               :cancel_url => '',
                :submit_button_text => t('.button_text'),
-               :hide_cancel => true,
-               :hide_delete => true
-             } if @app_dialog or @raw_videos.any? %>
+               :hide_submit => @raw_videos.empty?,
+               :hide_cancel => false,
+               :hide_delete => true,
+               :cancel_title => nil
+             } if @app_dialog or @raw_videos.any? or searching? %>
 </div>

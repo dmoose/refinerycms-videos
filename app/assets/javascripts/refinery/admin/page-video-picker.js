@@ -37,10 +37,10 @@ $(document).ready(function(){
     $(this).parents('li').first().append(hidden);
   });
 
-  reset_functionality();
+  reset_video_picker_functionality();
 });
 
-reset_functionality = function() {
+reset_video_picker_functionality = function() {
   WYMeditor.onload_functions.push(function(){
     $('.wym_box').css({'width':null});
   });
@@ -86,7 +86,7 @@ reset_functionality = function() {
 
 video_added = function(video) {
   new_list_item = (current_list_item = $('li.empty')).clone();
-  video_id = $(video).attr('id').replace('video_', '');
+  video_id = $(video).attr('id').replace('image_', '');
   current_list_item.find('input:hidden:first').val(video_id);
 
   $("<img />").attr({
@@ -98,7 +98,7 @@ video_added = function(video) {
   current_list_item.attr('id', 'video_' + video_id).removeClass('empty');
 
   new_list_item.appendTo($('#page_videos'));
-  reset_functionality();
+  reset_video_picker_functionality();
 }
 
 open_video_caption = function(e) {

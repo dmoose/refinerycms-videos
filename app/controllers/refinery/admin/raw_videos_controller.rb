@@ -9,6 +9,8 @@ module Refinery
               :searchable => true,
               :sortable => false
 
+      before_filter :init_dialog
+
       def create
         @raw_video = RawVideo.create_video(params)
 
@@ -45,6 +47,15 @@ module Refinery
 
       def paginate_raw_videos
         @raw_videos = @raw_videos.paginate(:page => params[:page], :per_page => 10)
+      end
+
+      def init_dialog
+        @app_dialog = params[:app_dialog].present?
+        @field = params[:field]
+        @update_image = params[:update_image]
+        @thumbnail = params[:thumbnail]
+        @callback = params[:callback]
+        @conditions = params[:conditions]
       end
 
     end

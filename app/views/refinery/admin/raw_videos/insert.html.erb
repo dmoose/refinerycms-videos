@@ -1,56 +1,47 @@
-<% user_can_modify_videos = ::Refinery::Plugins.active.names.include?("refinery_files") %>
-<div class='clearfix'>
-  <div id='dialog_menu_left'>
-    <% if (any_videos = @raw_videos.any?) %>
-      <span id='existing_video_radio' class='radio<%= " selected_radio" if @raw_video.errors.empty? %>'>
-        <input type='radio' name='video_type' value='existing_video' id='video_type_existing' <%= "checked='true'" if @raw_video.errors.empty? %> />
-        <label for='video_type_existing' class='stripped'>
-          <%= t('.existing') %>
-        </label>
-      </span>
-    <% end %>
+<% user_can_modify_videos = ::Refinery::Plugins.active.names.include?("refinery_images") %>
+<div id='dialog_menu_left'>
+  <% if (any_videos = @raw_videos.any?) or searching? %>
+    <span id="existing_image_radio" class="radio<%= " selected_radio" if (no_errors = @raw_video.errors.empty?) %>">
+      <input type='radio' name='image_type' value='existing_image' id='image_type_existing'<%= " checked='true'" if no_errors or searching? %> />
+      <label for='image_type_existing' class='stripped'><%= t('.existing_image') %></label>
+    </span>
+  <% end %>
+  <% if user_can_modify_videos %>
+    <span id="upload_image_radio" class="radio<%= " selected_radio" if !no_errors and !any_videos %>">
+      <input type='radio' name='image_type' value='upload_image' id='image_type_upload'<%= " checked='true'" if (!any_videos or !no_errors) and !searching? %> />
+      <label for='image_type_upload' class='stripped'><%= t('.new_image') %></label>
+    </span>
+  <% end %>
+</div>
+
+<div id='dialog_main'>
+  <% if any_videos or user_can_modify_videos %>
+    <%= render :partial => "existing_raw_video" if any_videos or searching? %>
+
     <% if user_can_modify_videos %>
-      <span id='upload_video_radio' class='radio<%= " selected_radio" if @raw_video.errors.any? or @raw_videos.empty? %>'>
-        <input type='radio' name='video_type' value='upload_video' id='video_type_upload' <%= "checked='true'" if @raw_videos.empty? or @raw_video.errors.any? %> />
-        <label for='video_type_upload' class='stripped'>
-          <%= t('.new') %>
-        </label>
-      </span>
+      <div id='upload_image_area' class='dialog_area'<%= " style='display:none;'" if any_videos and (no_errors or searching?) %>>
+        <%= render :partial => "form", :locals => {:insert => true} %>
+      </div>
     <% end %>
-  </div>
-
-  <div id='dialog_main'>
-    <% if any_videos or user_can_modify_videos %>
-      <%= render :partial => 'existing_raw_video' if any_videos %>
-
-      <% if user_can_modify_videos %>
-        <div id='upload_video_area' class='dialog_area' <%= "style='display:none;'" if any_videos and @raw_video.errors.empty? %>>
-          <%= render :partial => "form", :locals => {:insert => true} %>
-        </div>
-      <% end %>
-    <% else %>
-      <% flash.now[:error] = t('.no_files') %>
-      <%= render :partial => "/refinery/admin/form_actions",
-                 :locals => {
-                   :f => nil,
-                   :cancel_url => '',
-                   :hide_cancel => false,
-                   :hide_delete => true,
-                   :hide_submit => true,
-                   :cancel_button_text => t('close', :scope => 'refinery.admin.form_actions'),
-                   :cancel_title => nil
-                 } %>
-    <% end %>
-  </div>
+  <% else %>
+    <% flash.now[:error] = t('no_images_yet', :scope => 'refinery.admin.images.records').split('.').first.html_safe + "." %>
+    <%= render :partial => "/refinery/admin/form_actions",
+               :locals => {
+                 :f => nil,
+                 :cancel_url => '',
+                 :hide_cancel => false,
+                 :hide_delete => true,
+                 :hide_submit => true,
+                 :cancel_button_text => t('close', :scope => 'refinery.admin.form_actions'),
+                 :cancel_title => nil
+               } %>
+  <% end %>
 </div>
 
 <% content_for :javascripts do %>
   <script>
     $(document).ready(function(){
-    <% unless user_can_modify_videos %>
-      link_dialog.init();
-    <% end %>
-      resource_picker.init(<%= @callback.present? ? "self.parent.#{@callback}" : "null" %>);
+      image_dialog.init(<%= @callback.present? ? "self.parent.#{@callback}" : "null" %>);
     });
   </script>
 <% end %>
