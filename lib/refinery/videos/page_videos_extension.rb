@@ -15,9 +15,16 @@ module Refinery
         module_eval do
           def videos_attributes=(data)
             ids_to_keep = data.map{|i, d| d['page_video_id']}.compact
-            self.page_videos.where(
-              Refinery::PageVideo.arel_table[:id].not_in(ids_to_keep)
-            ).destroy_all
+
+            page_videos_to_delete = if ids_to_keep.empty?
+              self.page_videos
+            else
+              self.page_videos.where(
+                Refinery::PageVideo.arel_table[:id].not_in(ids_to_keep)
+              )
+            end
+
+            page_videos_to_delete.destroy_all
 
             data.each do |i, video_data|
               page_video_id, video_id, caption =
