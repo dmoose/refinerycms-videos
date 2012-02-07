@@ -1,0 +1,47 @@
+.dialog {
+  #existing_video_content {
+    position: relative;
+    height: 300px;
+    padding: 12px;
+  }
+  #existing_video_area_content {
+    margin-top: 28px;
+    ul {
+      margin: 0px;
+      padding: 0px;
+      li {
+        list-style: none;
+        padding: 0px;
+        margin: 0px 2px 0px 0px;
+        float: left;
+        height: 114px;
+        max-height: 114px;
+        width: 114px;
+        max-width: 114px;
+        overflow: hidden;
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+        img {
+          border: 4px solid transparent;
+        }
+        &.selected img {
+          border: 4px solid #22A7F2;
+        }
+      }
+    }
+  }
+}
+
+#upload_video_area, #upload_resource_area {
+  padding: 12px;
+}
+
+#existing_video_area {
+  padding-top:6px;
+}
+
+.current_video_link {
+  display: inline-block;
+  width: auto;
+}

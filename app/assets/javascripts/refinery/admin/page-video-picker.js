@@ -53,7 +53,7 @@ reset_video_picker_functionality = function() {
     , stop: reindex_videos
   });
 
-  $('#content #page_videos li:not(.empty)').live('hover', function(e) {
+  $('#content #page_videos li:not(.next_video)').live('hover', function(e) {
     if (e.type == 'mouseenter' || e.type == 'mouseover') {
       if ((video_actions = $(this).find('.video_actions')).length == 0) {
         video_actions = $("<div class='video_actions'></div>");
@@ -85,8 +85,8 @@ reset_video_picker_functionality = function() {
 }
 
 video_added = function(video) {
-  new_list_item = (current_list_item = $('li.empty')).clone();
-  video_id = $(video).attr('id').replace('image_', '');
+  new_list_item = (current_list_item = $('li.next_video')).clone();
+  video_id = $(video).attr('id').replace('video_', '');
   current_list_item.find('input:hidden:first').val(video_id);
 
   $("<img />").attr({
@@ -95,7 +95,7 @@ video_added = function(video) {
     , src: $(video).attr('data-grid') // use 'grid' size that is built into Refinery CMS (135x135#c).
   }).appendTo(current_list_item);
 
-  current_list_item.attr('id', 'video_' + video_id).removeClass('empty');
+  current_list_item.attr('id', 'video_' + video_id).removeClass('next_video');
 
   new_list_item.appendTo($('#page_videos'));
   reset_video_picker_functionality();

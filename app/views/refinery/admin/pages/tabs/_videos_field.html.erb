@@ -17,7 +17,7 @@
         <% end %>
       </li>
     <% end %>
-    <li class='empty'>
+    <li class='next_video'>
       <%= hidden_field_tag "#{f.object_name.demodulize}[videos_attributes][#{f.object.videos.size}][id]" %>
       <% if Refinery::Videos.config.captions %>
         <div class='textarea_wrapper_for_wym'>

@@ -1,8 +1,8 @@
-<div id='existing_image_area' class='dialog_area' <%= "style='display:none;'" if @raw_video.errors.any? %>>
+<div id='existing_video_area' class='dialog_area' <%= "style='display:none;'" if @raw_video.errors.any? %>>
   <%= render :partial => '/refinery/admin/search',
-             :locals => {:url => main_app.insert_refinery_admin_raw_videos_path(params.dup.delete(:image))} %>
-  <input type='hidden' name='selected_image' id='selected_image' />
-  <div id='existing_image_area_content' class='clearfix'>
+             :locals => {:url => main_app.insert_refinery_admin_raw_videos_path(params.dup.delete(:video))} %>
+  <input type='hidden' name='selected_video' id='selected_video' />
+  <div id='existing_video_area_content' class='clearfix'>
 <% if @raw_videos.any? %>
     <ul>
       <% @raw_videos.each do |video| %>
@@ -10,7 +10,7 @@
           <%= image_fu(video.poster_image, '106x106#c', {
                 :alt => video.title,
                 :title => video.title,
-                :id => "image_#{video.id}",
+                :id => "video_#{video.id}",
                 :'data-id' => video.id,
                 :"data-original" => asset_paths.compute_public_path(video.poster_image.url, ''),
                 :"data-grid" => asset_paths.compute_public_path(video.poster_image.thumbnail('135x135#c').url, '')
