@@ -1,4 +1,5 @@
-<% user_can_modify_videos = ::Refinery::Plugins.active.names.include?("refinery_videos") %>
+<% user_can_modify_videos = ::Refinery::Plugins.active.names.include?("refinerycms_videos") %>
+<% Rails.logger.debug [:plugins, ::Refinery::Plugins.active.names] %>
 <div id='dialog_menu_left'>
   <% if (any_videos = @raw_videos.any?) or searching? %>
     <span id="existing_video_radio" class="radio<%= " selected_radio" if (no_errors = @raw_video.errors.empty?) %>">
