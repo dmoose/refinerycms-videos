@@ -14,6 +14,11 @@ module Refinery
       def create
         @raw_video = RawVideo.create_video(params)
 
+        unless @raw_video.poster_image.present?
+          @raw_video.poster_image = default_poster_image
+          @raw_video.save!
+        end
+
         if @raw_video
           @raw_video.async_encode(:mp4, :ogv, :webm)
           flash[:notice] = t('encoding', :scope => 'refinery.admin.raw_videos', :title => @raw_video.title)
@@ -56,6 +61,12 @@ module Refinery
         @thumbnail = params[:thumbnail]
         @callback = params[:callback]
         @conditions = params[:conditions]
+      end
+
+      def default_poster_image
+        Refinery::Image.find_or_create_by_image_name(
+          :image_name => Refinery::Videos.default_poster_image.basename.to_s,
+          :image => Refinery::Videos.default_poster_image )
       end
 
     end
