@@ -11,8 +11,6 @@
                 :alt => video.title,
                 :title => video.title,
                 :id => "video_#{video.id}",
-                :'data-id' => video.id,
-                :"data-original" => asset_paths.compute_public_path(video.poster_image.url, ''),
                 :"data-grid" => asset_paths.compute_public_path(video.poster_image.thumbnail('135x135#c').url, '')
  }) -%>
         </li>
