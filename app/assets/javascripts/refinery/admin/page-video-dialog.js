@@ -53,28 +53,6 @@ var video_dialog = {
       $('#existing_video_area_content ul li.selected').removeClass('selected');
 
       $(img).parent().addClass('selected');
-      var videoId = $(img).attr('data-id');
-      var geometry = $('#existing_video_size_area li.selected a').attr('data-geometry');
-      var size = $('#existing_video_size_area li.selected a').attr('data-size');
-      //var resize = $("#wants_to_resize_video").is(':checked');
-
-      video_url = resize ? $(img).attr('data-' + size) : $(img).attr('data-original');
-
-      if (parent) {
-        if ((wym_src = parent.document.getElementById('wym_src')) != null) {
-          wym_src.value = video_url;
-        }
-        if ((wym_title = parent.document.getElementById('wym_title')) != null) {
-          wym_title.value = $(img).attr('title');
-        }
-        if ((wym_alt = parent.document.getElementById('wym_alt')) != null) {
-          wym_alt.value = $(img).attr('alt');
-        }
-        if ((wym_size = parent.document.getElementById('wym_size')) != null
-            && typeof(geometry) != 'undefined') {
-          wym_size.value = geometry.replace(/[<>=]/g, '');
-        }
-      }
     }
   }
 
@@ -99,14 +77,6 @@ var video_dialog = {
     $('.form-actions-dialog #cancel_button')
       .not('.wym_iframe_body .form-actions-dialog #cancel_button')
       .click($.proxy(close_dialog, _this));
-
-    $('#existing_video_size_area ul li a').click(function(e) {
-      $('#existing_video_size_area ul li').removeClass('selected');
-      $(this).parent().addClass('selected');
-      $('#existing_video_size_area #wants_to_resize_video').attr('checked', 'checked');
-      video_dialog.set_video($('#existing_video_area_content ul li.selected img'));
-      e.preventDefault();
-    });
 
     video_area = $('#existing_video_area').not('#wym_iframe_body #existing_video_area');
     video_area.find('.form-actions input#submit_button').click($.proxy(function(e) {
