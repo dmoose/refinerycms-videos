@@ -10,7 +10,7 @@ module Refinery
     video_accessor :file
     attr_accessible :file
     
-    delegate :name, :uid, :mime_type, :v_height, :v_width, :ext, :frame_rate, :to => :file
+    delegate :uid, :mime_type, :v_height, :v_width, :ext, :frame_rate, :to => :file
     delegate :duration, :bitrate, :size, :stream, :codec, :colorspace, :resolution, :to => :file
     delegate :audio_stream, :audio_codec, :audio_sample_rate, :audio_channels, :to => :file
     delegate :url, :remote_url, :to => :file
@@ -81,6 +81,14 @@ module Refinery
     
     def poster_image_url
       self.poster_image.present? ? self.poster_image.image.url : nil
+    end
+    
+    def name
+      return self.custom_name.blank? ? file.name : self.custom_name
+    end
+    
+    def name=(val)
+      self.custom_name = val
     end
     
     private
