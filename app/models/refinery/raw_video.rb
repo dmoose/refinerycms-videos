@@ -69,8 +69,8 @@ module Refinery
       formats.each { |format| Resque.enqueue(Refinery::EncodeVideo, self.id, format) }
     end
 
-    def title
-      CGI::unescape(name.to_s).gsub(/\.\w+$/, '').titleize
+    def display_title
+      (CGI::unescape(self.title || self.file_name || "Untitled")).gsub(/\.\w+$/, '').titleize
     end
   
     def encoded?
@@ -81,14 +81,6 @@ module Refinery
     
     def poster_image_url
       self.poster_image.present? ? self.poster_image.image.url : nil
-    end
-    
-    def name
-      return self.custom_name.blank? ? file.name : self.custom_name
-    end
-    
-    def name=(val)
-      self.custom_name = val
     end
     
     private
