@@ -5,7 +5,7 @@ module Refinery
     has_many :page_videos, :dependent => :destroy
 
     belongs_to :poster_image, :class_name => 'Refinery::Image'
-    attr_accessible :poster_image_id
+    attr_accessible :poster_image_id, :title
     
     video_accessor :file
     attr_accessible :file
