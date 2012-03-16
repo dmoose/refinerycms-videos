@@ -70,7 +70,8 @@ module Refinery
     end
 
     def display_title
-      (CGI::unescape(self.title || self.file_name || "Untitled")).gsub(/\.\w+$/, '').titleize
+      return self.title unless self.title.blank?
+      CGI::unescape( self.file_name ).gsub(/\.\w+$/, '').titleize
     end
   
     def encoded?
