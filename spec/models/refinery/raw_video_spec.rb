@@ -29,6 +29,16 @@ module Refinery
       end
     end
     
+    describe "display_title" do
+      it "should show the filename if the title is missing" do
+        pending
+      end
+      
+      it "should show the title if it exists" do
+        pending
+      end
+    end
+    
     describe ".encode" do
       before(:each) { EncodedVideo.delete_all }
       
