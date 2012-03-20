@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'refinerycms-core', '~> 2.0.0'
   s.add_dependency 'refinerycms-authentication', '~> 2.0.0'
-  s.add_dependency 'dragonfly-ffmpeg', '~> 0.1.4'
+  s.add_dependency 'dragonfly-ffmpeg', '~> 0.1.5'
   #s.add_dependency 'resque', '~> 1.17.1' # updated to 1.18.6
   s.add_dependency 'resque', '~> 1.18.6'
   
