@@ -47,6 +47,10 @@ module Refinery
            "refinery/videos/*"
         ]
       end
+      
+      initializer 'refinerycms_videos.helper' do |app|
+        ActionView::Base.send :include, RawVideosHelper
+      end
 
       config.after_initialize do
         Refinery::Plugin.register do |plugin|

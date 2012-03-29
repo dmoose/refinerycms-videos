@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :raw_videos, :path => 'videos', :except => :show do
         collection do
           get :insert
+          get :embed
           post :upload
           post :update_positions
         end

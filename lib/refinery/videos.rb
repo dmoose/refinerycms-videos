@@ -25,7 +25,7 @@ module Refinery
     self.encode_queue_name = DEFAULT_ENCODE_QUEUE_NAME
 
     class << self
-      # Configure the options of Refinery::Images.
+      # Configure the options of Refinery::Videos.
       #
       #   Refinery::Videos.configure do |config|
       #     config.use_nginx_module = true

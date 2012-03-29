@@ -2,7 +2,7 @@ module Refinery
   module Videos
     class Version
       @major = 2
-      @minor = 0
+      @minor = 1
       @tiny  = 0
 
       class << self
