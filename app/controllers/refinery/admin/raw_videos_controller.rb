@@ -3,7 +3,6 @@ module Refinery
     class RawVideosController < Refinery::AdminController
 
       respond_to :html
-      layout false, :only => [:embed]
 
       crudify :'refinery/raw_video',
               :title_attribute => 'title',
@@ -48,11 +47,12 @@ module Refinery
 
         paginate_raw_videos
 
-        render :action => 'insert'
+        #render :action => 'insert'
       end
       
       def embed
         insert
+        render :layout => false
       end
 
       def paginate_raw_videos
