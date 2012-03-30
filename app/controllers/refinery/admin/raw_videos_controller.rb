@@ -48,7 +48,7 @@ module Refinery
 
         paginate_raw_videos
 
-        #render :action => 'insert'
+        render :action => 'insert'
       end
       
       def embed
