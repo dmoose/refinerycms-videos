@@ -32,7 +32,7 @@
 <% end %>
   </div>
 
-  <%= will_paginate @raw_videos %>
+  <%= will_paginate @raw_videos, :remote => true, :update => "embed-video-dialog" %>
 
   <%= render :partial => "/refinery/admin/form_actions",
              :locals => {
