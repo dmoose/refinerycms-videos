@@ -52,7 +52,6 @@ module Refinery
       
       def embed
         insert
-        puts "VIDEOS:::::::::::::::::::#{@raw_videos.length}"
         respond_to do |format|
           puts format.inspect
           format.html {render :layout => false}

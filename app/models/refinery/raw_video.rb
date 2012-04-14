@@ -23,7 +23,7 @@ module Refinery
 
       # will-paginate default videos per page. To override this setting: 
       #   Refinery::RawVideo.per_page = num
-      per_page = 2
+      per_page = 12
 
       def create_video(params)
         if Videos.use_nginx_upload_module
