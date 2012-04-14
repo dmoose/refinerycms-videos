@@ -1,0 +1,3 @@
+$('#embed-video-list').html('<%=escape_javascript render :partial => "embed" %>');
+$('#embed-video-list a').attr('data-remote', 'true');
+$('#embed-video-list').<%= @raw_videos.empty? ? 'hide' : 'show' %>();

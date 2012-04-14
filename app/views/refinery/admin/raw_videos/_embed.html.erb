@@ -1,0 +1,31 @@
+<%#= render :partial => '/refinery/admin/search',
+    :locals => {:url => main_app.insert_refinery_admin_raw_videos_path(params.dup.delete(:video))} %>
+<input type='hidden' name='selected_video' id='selected_video' />
+Width: <input type='text' name='embed-video-width' id='embed-video-width' value="700" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Height: <input type='text' name='embed-video-height' id='embed-video-height' value="400" />
+
+<div id='existing_video_area_content' class='clearfix'>
+<% if @raw_videos.any? %>
+  <ul>
+    <% @raw_videos.each do |video| %>
+      <li<%= " class='selected'" if @raw_video_id == video.id %>>
+        <%= image_fu(video.poster_image, '106x106#c', {
+              :alt => video.title,
+              :title => video.title,
+              :id => "video_#{video.id}",
+              :"data-grid" => asset_paths.compute_public_path(video.poster_image.thumbnail('135x135#c').url, '')
+}) -%>
+        <div class="video-embed-code">
+          <div class="videoContainer">
+            <%= render_video_player(video) %>
+          </div>
+        </div>
+      </li>
+    <% end -%>
+  </ul>
+<% elsif searching? %>
+  <%= t('no_results', :scope => 'refinery.admin.search') %>
+<% end %>
+</div>
+<%= will_paginate @raw_videos %>

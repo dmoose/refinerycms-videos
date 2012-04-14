@@ -52,11 +52,16 @@ module Refinery
       
       def embed
         insert
-        render :layout => false
+        puts "VIDEOS:::::::::::::::::::#{@raw_videos.length}"
+        respond_to do |format|
+          puts format.inspect
+          format.html {render :layout => false}
+          format.js {render :layout => false}
+        end
       end
 
       def paginate_raw_videos
-        @raw_videos = @raw_videos.paginate(:page => params[:page])
+        @raw_videos = @raw_videos.paginate(:page => params[:page], :per_page => 2)
       end
 
       def init_dialog

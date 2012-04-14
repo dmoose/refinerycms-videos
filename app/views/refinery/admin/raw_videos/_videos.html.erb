@@ -2,3 +2,9 @@
 <ul class="<%= ['pagination_frame', pagination_css_class].compact.join(' ') %>">
   <%= render :partial => "video", :collection => @raw_videos %>
 </ul>
+
+<script>
+  $(document).ready(function() {
+    $('.pagination a').attr('data-remote', 'true');
+  });
+</script>
