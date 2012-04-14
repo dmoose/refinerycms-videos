@@ -60,7 +60,7 @@ module Refinery
       end
 
       def paginate_raw_videos
-        @raw_videos = @raw_videos.paginate(:page => params[:page], :per_page => 2)
+        @raw_videos = @raw_videos.paginate(:page => params[:page])
       end
 
       def init_dialog
