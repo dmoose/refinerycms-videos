@@ -19,6 +19,7 @@ class CreateRawVideos < ActiveRecord::Migration
       t.string :file_audio_codec
       t.integer :file_audio_sample_rate
       t.integer :file_audio_channels
+      t.string  :title
       
       t.timestamps
     end
